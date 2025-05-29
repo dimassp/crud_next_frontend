@@ -1,4 +1,11 @@
+"use client";
+
 import Image from "next/image";
+import AxiosInstance from "@/utils/axiosInstance";
+console.log("Check console.log from app/page.tsx");
+console.log("Check Axios Instance");
+console.log(AxiosInstance);
+
 
 export default function Home() {
   return (
