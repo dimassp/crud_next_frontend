@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { AppSidebar } from "@/components/app-sidebar"
-import { SiteHeader } from "@/components/site-header"
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar"
 
 import "./globals.css";
@@ -38,20 +37,15 @@ export const metadata: Metadata = {
   ],
 };
 
-console.log("Check console.log from layout.tsx");
-
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode; }>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <SidebarProvider>
           <AppSidebar variant="inset" />
           <SidebarInset>
-            <SiteHeader />
             {children}
           </SidebarInset>
         </SidebarProvider>

@@ -46,22 +46,7 @@ const data = {
       icon: LayoutDashboardIcon,
     },
     {
-      title: "Lifecycle",
-      url: "#",
-      icon: ListIcon,
-    },
-    {
-      title: "Analytics",
-      url: "#",
-      icon: BarChartIcon,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: FolderIcon,
-    },
-    {
-      title: "Team",
+      title: "User",
       url: "#",
       icon: UsersIcon,
     },
@@ -151,6 +136,17 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
+  const [currentPath, setCurrentPath] = React.useState("");
+
+  React.useEffect(() => {
+    // This runs only on the client
+    setCurrentPath(window.location.pathname);
+    console.log("currentPath:", window.location.pathname);
+  }, []);
+
+  console.log("Check current path: ", currentPath);
+
+  console.log(currentPath);
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -160,10 +156,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               asChild
               className="data-[slot=sidebar-menu-button]:!p-1.5"
             >
-              <a href="#">
-                <ArrowUpCircleIcon className="h-5 w-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

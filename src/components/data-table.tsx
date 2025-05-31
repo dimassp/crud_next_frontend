@@ -52,7 +52,7 @@ import {
 } from "lucide-react"
 import { Area, AreaChart, CartesianGrid, XAxis } from "recharts"
 import { toast } from "sonner"
-import { infer, z, ZodObject, ZodRawShape } from "zod"
+import { custom, infer, z, ZodObject, ZodRawShape } from "zod"
 
 import { useIsMobile } from "@/hooks/use-mobile"
 import { Badge } from "@/components/ui/badge"
@@ -345,18 +345,14 @@ interface DataTableProps<T extends ZodRawShape = typeof defaultSchema.shape> {
   customColumns?: ColumnDef<z.infer<ZodObject<T>>>[];
 }
 
-export function DataTable({
+export function DataTable<T extends ZodRawShape>({
   data: initialData,
-} :  {
-  data: z.infer<typeof defaultSchema>[]
-}) 
-
-// export function DataTable<T extends ZodRawShape = typeof defaultSchema.shape>({
-//   schema = defaultSchema,
-//   data: initialData,
-//   customColumns = columns
-// }: DataTableProps<T>) 
-{
+  customColumns
+}: {
+  data: z.infer<ZodObject<T>>[]
+  // customColumns: ColumnDef<z.infer<ZodObject<T>>>[];
+  customColumns: ColumnDef<any>[];
+}) {
   const [data, setData] = React.useState(() => initialData)
   const [rowSelection, setRowSelection] = React.useState({})
   const [columnVisibility, setColumnVisibility] =
@@ -381,13 +377,11 @@ export function DataTable({
     [data]
   )
 
-  // console.log("Check custom columns: ", customColumns);
-  // console.log("Check default columns: ", defaultColumns);
-
   const table = useReactTable({
-    data,
+    data: initialData,
+    columns: customColumns,
     // customColumns,
-    columns,
+    // columns,
     state: {
       sorting,
       columnVisibility,
@@ -410,8 +404,6 @@ export function DataTable({
     getFacetedUniqueValues: getFacetedUniqueValues(),
   })
 
-  console.log("Check all Columns: ", table.getAllColumns());
-
   function handleDragEnd(event: DragEndEvent) {
     const { active, over } = event
     if (active && over && active.id !== over.id) {
@@ -432,7 +424,7 @@ export function DataTable({
         <Label htmlFor="view-selector" className="sr-only">
           View
         </Label>
-        <Select defaultValue="outline">
+        {/* <Select defaultValue="outline">
           <SelectTrigger
             className="@4xl/main:hidden flex w-fit"
             id="view-selector"
@@ -445,7 +437,7 @@ export function DataTable({
             <SelectItem value="key-personnel">Key Personnel</SelectItem>
             <SelectItem value="focus-documents">Focus Documents</SelectItem>
           </SelectContent>
-        </Select>
+        </Select> */}
         <TabsList className="@4xl/main:flex hidden">
           <TabsTrigger value="outline">Outline</TabsTrigger>
           <TabsTrigger value="past-performance" className="gap-1">
@@ -469,7 +461,7 @@ export function DataTable({
           <TabsTrigger value="focus-documents">Focus Documents</TabsTrigger>
         </TabsList>
         <div className="flex items-center gap-2">
-          <DropdownMenu>
+          {/* <DropdownMenu>
             <DropdownMenuTrigger asChild>
               <Button variant="outline" size="sm">
                 <ColumnsIcon />
@@ -501,11 +493,11 @@ export function DataTable({
                   )
                 })}
             </DropdownMenuContent>
-          </DropdownMenu>
-          <Button variant="outline" size="sm">
+          </DropdownMenu> */}
+          {/* <Button variant="outline" size="sm">
             <PlusIcon />
             <span className="hidden lg:inline">Add Section</span>
-          </Button>
+          </Button> */}
         </div>
       </div>
       <TabsContent
@@ -530,9 +522,9 @@ export function DataTable({
                           {header.isPlaceholder
                             ? null
                             : flexRender(
-                                header.column.columnDef.header,
-                                header.getContext()
-                              )}
+                              header.column.columnDef.header,
+                              header.getContext()
+                            )}
                         </TableHead>
                       )
                     })}
@@ -680,7 +672,7 @@ const chartConfig = {
   },
 } satisfies ChartConfig
 
-function TableCellViewer({ item }: { item: z.infer<typeof schema> }) {
+function TableCellViewer({ item }: { item: z.infer<typeof defaultSchema> }) {
   const isMobile = useIsMobile()
 
   return (

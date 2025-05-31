@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
 import { DataTable } from "@/components/data-table"
 import { SectionCards } from "@/components/section-cards"
-import Component from "@/components/ClientComponent";
+import Component from "@/components/DataTable";
 import data from "./data.json"
 
 console.log("Check component: \n")

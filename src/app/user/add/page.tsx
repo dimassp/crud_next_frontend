@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import DataTable from "@/components/DataTable";
 import { SiteHeader } from "@/components/site-header";
-import { Button } from "@/components/ui/button";
-import { Plus } from "lucide-react";
-import Link from "next/link";
+import { FormAddUser } from "@/components/forms/Forms";
+
 
 export const metadata: Metadata = {
   title: "PWA Next | Dashboard",
@@ -35,14 +33,8 @@ export default function Page() {
         <div className="@container/main flex flex-1 flex-col gap-2">
           <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
             <div className="px-8">
-              <Link href={"/user/add"}>
-                <Button className="w-fit bg-green-700" style={{ float: "right" }}>
-                  <Plus /> Add
-                </Button>
-              </Link>
+              <FormAddUser />
             </div>
-            <DataTable apiURL="http://localhost:8000/api/user" />
-            {/* <DataTable data={data} /> */}
           </div>
         </div>
       </div>
