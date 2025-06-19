@@ -1,7 +1,7 @@
 
 import type { Metadata } from "next";
 import { ChartAreaInteractive } from "@/components/chart-area-interactive"
-import { DataTable } from "@/components/data-table"
+import DataTable from "@/components/DataTable";
 import { SectionCards } from "@/components/section-cards"
 import Component from "@/components/DataTable";
 import data from "./data.json"
@@ -41,7 +41,7 @@ export default function Page() {
             <ChartAreaInteractive />
           </div>
           <h1>Check Component</h1>
-          <DataTable data={data} />
+          <DataTable apiURL="http://localhost:8000/api/user" />
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import AxiosInstance from "../utils/axiosInstance";
+import { fetchData } from "../utils/axiosInstance";
 import { DataTable as DefaultDataTable } from "./data-table";
 import { userColumns } from "@/components/Columns";
 
@@ -13,9 +13,11 @@ export default function DataTable({
     const [apiData, setData] = useState();
 
     useEffect(() => {
-        AxiosInstance.get(apiURL).then(response => {
+        const result = fetchData({apiUrl: apiURL});
+        console.log("Check re-render fetch from API: ", result);
+        result.then(response => {
             setData(response.data);
-        })
+        });
     }, [])
 
     if (apiData === undefined) {

@@ -42,12 +42,12 @@ const data = {
   navMain: [
     {
       title: "Dashboard",
-      url: "#",
+      url: "/dashboard",
       icon: LayoutDashboardIcon,
     },
     {
       title: "User",
-      url: "#",
+      url: "/user",
       icon: UsersIcon,
     },
   ],
@@ -136,17 +136,6 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const [currentPath, setCurrentPath] = React.useState("");
-
-  React.useEffect(() => {
-    // This runs only on the client
-    setCurrentPath(window.location.pathname);
-    console.log("currentPath:", window.location.pathname);
-  }, []);
-
-  console.log("Check current path: ", currentPath);
-
-  console.log(currentPath);
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>

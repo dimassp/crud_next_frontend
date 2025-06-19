@@ -1,3 +1,4 @@
+
 import type { Metadata } from "next";
 import DataTable from "@/components/DataTable";
 import { SiteHeader } from "@/components/site-header";
@@ -28,6 +29,9 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
+
+  // checkAuthenticated();
+
   return (
     <>
       <SiteHeader title="User" />
